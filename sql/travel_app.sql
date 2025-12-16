@@ -1,4 +1,3 @@
--- Create database and tables for Travel App
 CREATE DATABASE IF NOT EXISTS travel_app;
 USE travel_app;
 
