@@ -1,76 +1,330 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #74ebd5, #acb6e5);
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.container {
-  width: 100%;
+body {
+  background: linear-gradient(135deg, #ff7b3a 0%, #ffb347 50%, #fff 100%);
   min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  width: 320px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  text-align: center;
+.navbar h1 {
+  font-size: 20px;
+  color: #ff6b35;
+  font-weight: 700;
 }
 
-input, button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-button {
-  background: #4CAF50;
-  color: white;
+.navbar button {
+  background: #ff6b35;
   border: none;
-  border-radius: 6px;
+  padding: 8px 16px;
+  color: #fff;
+  border-radius: 20px;
   cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
 }
 
-button:hover {
-  background: #388e3c;
+.navbar button:hover {
+  background: #e05828;
 }
 
-.nav {
-  background: #2c3e50;
-  padding: 15px;
-  color: white;
-  text-align: center;
+/* Auth layout */
+.auth-wrapper {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
-.destinations {
+.auth-card {
+  background: #fff;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.auth-image {
+  background-image: url("https://images.unsplash.com/photo-1502920917128-1aa500764b43?auto=format&fit=crop&w=1000&q=80");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.auth-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.6),
+    rgba(255, 107, 53, 0.5)
+  );
+}
+
+.auth-image-content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.auth-image-content h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.auth-image-content p {
+  opacity: 0.9;
+}
+
+.auth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.auth-form {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-form h3 {
+  font-size: 22px;
+  color: #222;
+}
+
+.auth-form p {
+  font-size: 14px;
+  color: #555;
+}
+
+.auth-form .input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-form label {
+  font-size: 13px;
+  color: #555;
+}
+
+.auth-form input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e2e2;
+  font-size: 14px;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.15);
+}
+
+.btn-primary {
+  background: #ff6b35;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background: #e05828;
+}
+
+.auth-footer {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.auth-footer a {
+  color: #ff6b35;
+  text-decoration: none;
+}
+
+/* Generic container/card */
+.page {
+  padding: 24px;
+}
+
+.section-title {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+/* Destinations */
+.dest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
-  padding: 20px;
 }
 
 .dest-card {
-  background: white;
-  border-radius: 12px;
+  background: #fff;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
 }
 
 .dest-card img {
   width: 100%;
-  height: 150px;
+  height: 160px;
   object-fit: cover;
 }
 
-.dest-card div {
-  padding: 15px;
+.dest-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-a {
-  text-decoration: none;
-  color: white;
+.dest-meta {
+  font-size: 13px;
+  color: #777;
+}
+
+.dest-price-days {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff6b35;
+}
+
+.dest-details {
+  font-size: 13px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.dest-card button {
+  margin-top: 8px;
+  background: #ff6b35;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Booking page */
+.card-centered {
+  max-width: 420px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+.card-centered h2 {
+  margin-bottom: 16px;
+}
+
+.card-centered input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e2e2;
+  margin-bottom: 16px;
+}
+
+/* Admin table */
+.filter-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-row input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.filter-row button {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  background: #ff6b35;
+  color: #fff;
+  cursor: pointer;
+}
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+}
+
+th {
+  background: #fff7f0;
+  color: #333;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .auth-card {
+    grid-template-columns: 1fr;
+  }
+  .auth-image {
+    height: 220px;
+  }
 }

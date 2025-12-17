@@ -3,38 +3,36 @@ const router = express.Router();
 const db = require("../db");
 const bcrypt = require("bcryptjs");
 
-// Simple login 
+// LOGIN
 router.post("/login", (req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password) return res.json({ success:false, msg:"Missing fields" });
+  const { username, password } = req.body;
 
-    db.query("SELECT * FROM users WHERE username=?", [username], (err, users) => {
-        if (err) return res.status(500).json({ success:false, msg:"DB error" });
+  db.query(
+    "SELECT id, username, password, is_admin FROM users WHERE username=?",
+    [username],
+    (err, users) => {
+      if (err) return res.status(500).json({ success: false });
 
-        if (users.length === 0)
-            return res.json({ success: false, msg: "User not found" });
+      if (users.length === 0)
+        return res.json({ success: false, msg: "User not found" });
 
-        const match = bcrypt.compareSync(password, users[0].password);
+      const user = users[0];
+      const match = bcrypt.compareSync(password, user.password);
 
-        if (!match)
-            return res.json({ success: false, msg: "Incorrect password" });
+      if (!match)
+        return res.json({ success: false, msg: "Wrong password" });
 
-        res.json({ success: true, userId: users[0].id });
-    });
-});
-
-// signup route 
-router.post("/signup", (req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password) return res.json({ success:false, msg:"Missing fields" });
-    const hashed = bcrypt.hashSync(password, 8);
-    db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, hashed], (err, result) => {
-        if (err) {
-            if (err.code === 'ER_DUP_ENTRY') return res.json({ success:false, msg:"Username exists" });
-            return res.status(500).json({ success:false, msg:"DB error" });
+      // ✅ STORE EVERYTHING FRONTEND NEEDS
+      res.json({
+        success: true,
+        user: {
+          id: user.id,
+          username: user.username,
+          is_admin: user.is_admin === 1
         }
-        res.json({ success:true, userId: result.insertId });
-    });
+      });
+    }
+  );
 });
 
 module.exports = router;
